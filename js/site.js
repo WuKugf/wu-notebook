@@ -50,6 +50,39 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  /* ---------- 首屏下载按钮：识别设备 ---------- */
+  (function () {
+    var btn = document.getElementById("heroDl");
+    if (!btn) return;
+    var label = document.getElementById("heroDlLabel");
+    var meta = document.getElementById("heroDlMeta");
+    var hint = document.getElementById("heroDlHint");
+    var ua = navigator.userAgent || "";
+    var plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+    var isAndroid = /Android/i.test(ua) || /Android/i.test(plat);
+    var isWindows = !isAndroid && (/Windows/i.test(ua) || /Win/i.test(plat));
+
+    function set(href, name, info, text) {
+      btn.href = href;
+      btn.setAttribute("download", "");
+      label.textContent = name;
+      meta.textContent = info;
+      hint.textContent = text + " · 点击直接下载";
+      hint.classList.add("is-ready");
+    }
+
+    if (isAndroid) {
+      set("downloads/wu-notebook-android.apk", "下载安卓 APK", "v1.0.0 · 54.4 MB", "已识别 Android");
+    } else if (isWindows) {
+      set("downloads/wu-notebook-windows.zip", "下载 Windows 程序", "v1.0.0 · 12.7 MB", "已识别 Windows");
+    } else {
+      btn.href = "#download";
+      label.textContent = "选择客户端";
+      meta.textContent = "Android / Windows";
+      hint.textContent = "未识别到手机或 Windows，去下载区选择";
+    }
+  })();
+
   /* ---------- 跑马灯 ---------- */
   var words = ["local first", "6 drawers", "zero ads", "no account", "no tracking", "v1.0.0", "WUKU", "offline ready", "打开即用", "本地存储"];
   var track = document.getElementById("mtrack");

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WU本子 · 密码 / 备忘 / 待办 / 日子 / 文件 — 本地 · 无账号 · 零广告</title>
+<meta name="description" content="WU本子 v1.0.0：一本装在浏览器里的本子。密码本、备忘录、待办、倒数日、文件库，六个抽屉全部在本机打开。无需账号、零广告、零联网，打开就能用。">
+<meta name="theme-color" content="#060807">
+<meta property="og:title" content="WU本子 — 一本安静的本子">
+<meta property="og:description" content="密码、备忘、待办、日子与文件，收进一本本子。全程本地，不需要账号。">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<noscript><style>
+  .loader{display:none!important}
+  body{overflow:auto!important}
+  [data-reveal]{opacity:1!important;transform:none!important;filter:none!important}
+  .manifesto .line{color:#f2efe7}
+  .ring{display:none}
+</style></noscript>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+
+<div class="loader" id="loader">
+  <div class="loader__in">
+    <img class="loader__mark" src="assets/mark.svg" alt="">
+    <div class="loader__name">WU本子</div>
+    <div class="loader__bar"><i id="lbar"></i></div>
+    <div class="loader__num" id="lnum">000 / 100</div>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" data-cursor="">
+    <img src="assets/icon.svg" alt="WU本子">
+    <b>WU本子</b>
+    <s>/ WUKU</s>
+  </a>
+  <nav class="nav__links">
+    <a href="#manifesto">概览</a>
+    <a href="#interface">界面</a>
+    <a href="#features">特性</a>
+    <a href="#about">关于</a>
+    <a href="#download">下载</a>
+  </nav>
+  <a class="nav__cta" href="app.html" data-cursor=""><i></i>打开本子</a>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="hero__bg"></div>
+    <div class="hero__grid-lines" aria-hidden="true"></div>
+
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow in" data-reveal=""><span class="dot"></span>local-first · 无需账号 · 零广告 · 六个抽屉</p>
+        <h1 class="display in" data-reveal="" style="--d:80ms">
+          <span class="l1">WU本子</span>
+          <span class="l2"><em>六</em> 个抽屉，一页日常</span>
+        </h1>
+        <p class="lead in" data-reveal="" style="--d:160ms">
+          把密码、备忘、待办、日子与文件，收进一本安静的本子。<br>
+          <b>数据只留在本机</b> —— 没有账号、没有广告、没有一条联网请求。<br>
+          打开，就能用。
+        </p>
+        <div class="cta in" data-reveal="" style="--d:240ms">
+          <a class="btn btn--solid magnetic" href="app.html" data-cursor="">
+            打开本子<small>免安装 · 离线可用</small>
+          </a>
+          <a class="btn btn--ghost magnetic" href="#features" data-cursor="">看看六个抽屉<small>6 drawers</small></a>
+        </div>
+        <ul class="hero-meta in" data-reveal="" style="--d:320ms">
+          <li><b>v1.0.0</b><span>当前版本</span></li>
+          <li><b>Local-first</b><span>本地存储</span></li>
+          <li><b>0 / 0</b><span>广告 · 联网</span></li>
+        </ul>
+      </div>
+
+      <div class="hero__stage" id="stage">
+        <div class="stage-glow" aria-hidden="true"></div>
+        <svg class="orbits" viewBox="0 0 600 600" aria-hidden="true">
+          <circle cx="300" cy="300" r="292"></circle>
+          <circle class="ring2" cx="300" cy="300" r="232"></circle>
+          <circle cx="300" cy="300" r="168"></circle>
+        </svg>
+        <div class="float-tag t-a"><b>vault</b> 独立密码</div>
+        <div class="float-tag t-b"><b>local</b> 只存本机</div>
+        <div class="float-tag t-c"><b>0</b> network</div>
+        <div class="tilt" id="tilt">
+          <div class="device" style="--dw:clamp(250px,26vw,318px)">
+            <div class="screen"><img src="assets/shot-vault.svg" alt="WU本子 密码本界面"></div>
+            <div class="bezel"></div>
+            <div class="gloss"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true"><span>scroll</span><i></i></div>
+  </section>
+
+  <!-- ================= 跑马灯 ================= -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track" id="mtrack"></div>
+  </div>
+
+  <!-- ================= 宣言 ================= -->
+  <section class="manifesto" id="manifesto">
+    <div class="wrap manifesto__in">
+      <p class="mono in" data-reveal="" style="margin-bottom:clamp(30px,4vw,54px)">01 — 它是什么</p>
+      <div class="manifest">
+        <span class="line">不需要网络。</span>
+        <span class="line">不需要账号。</span>
+        <span class="line">也不需要把心事<span class="hl">交给别人</span>。</span>
+      </div>
+      <p data-reveal="">WU本子是一本装在浏览器里的本子。密码本、备忘录、待办、倒数日、文件库，
+      一共 <b>六个抽屉</b>，全部在本机打开。断网、飞行模式、关掉 Wi-Fi，它照样一页不少地工作。</p>
+    </div>
+  </section>
+
+  <!-- ================= 界面 ================= -->
+  <section class="sec" id="interface">
+    <div class="wrap">
+      <div class="sec-head" data-reveal="">
+        <div>
+          <div class="idx">02 — 界面</div>
+          <h2>六个抽屉，一眼看见</h2>
+        </div>
+        <p>左侧是抽屉，右侧是桌面。手机与电脑上，都只保留最浅的一层——从入口到内容，最多两步。</p>
+      </div>
+
+      <div class="shots">
+        <figure class="shot" data-reveal="">
+          <div class="stage">
+            <div class="device tilt-s" style="--dw:min(260px,72vw);--ry:-6;--rx:3">
+              <div class="screen"><img src="assets/shot-vault.svg" alt="密码本界面"></div>
+              <div class="bezel"></div><div class="gloss"></div>
+            </div>
+          </div>
+          <figcaption>
+            <div class="cap-top"><span class="idx">001</span><h3>密码本</h3></div>
+            <p>独立密码解锁，条目默认掩码，点一下眼睛才看得见。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="shot" data-reveal="" style="--d:120ms">
+          <div class="stage">
+            <div class="device tilt-s" style="--dw:min(260px,72vw);--ry:-6;--rx:3">
+              <div class="screen"><img src="assets/shot-todo.svg" alt="待办界面"></div>
+              <div class="bezel"></div><div class="gloss"></div>
+            </div>
+          </div>
+          <figcaption>
+            <div class="cap-top"><span class="idx">002</span><h3>待办</h3></div>
+            <p>优先级、截止时间、子任务，勾掉一件是一件。</p>
+          </figcaption>
+        </figure>
+
+        <figure class="shot" data-reveal="" style="--d:240ms">
+          <div class="stage">
+            <div class="device tilt-s" style="--dw:min(260px,72vw);--ry:-6;--rx:3">
+              <div class="screen"><img src="assets/shot-days.svg" alt="倒数日界面"></div>
+              <div class="bezel"></div><div class="gloss"></div>
+            </div>
+          </div>
+          <figcaption>
+            <div class="cap-top"><span class="idx">003</span><h3>倒数日</h3></div>
+            <p>未来的日子和过去的纪念日，都替你记着天数。</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 影片框 ================= -->
+  <section class="cinema" id="film">
+    <div class="wrap">
+      <div class="frame" data-reveal="">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="reel">
+          <div class="reel__rings" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="reel__copy">
+            <span class="mono">WU 本子 · 本地运行</span>
+            <h3>把日常，<br>收进<em>一页</em>。</h3>
+            <p>密码 · 备忘 · 待办 · 日子 · 文件</p>
+          </div>
+          <div class="reel__chips" aria-hidden="true">
+            <span>local only</span><span>no account</span><span>v1.0.0</span><span>offline ready</span>
+          </div>
+          <div class="reel__device">
+            <div class="device" style="--dw:100%">
+              <div class="screen"><img src="assets/shot-days.svg" alt=""></div>
+              <div class="bezel"></div><div class="gloss"></div>
+            </div>
+          </div>
+        </div>
+        <div class="frame__bar">
+          <span class="live"><i></i>00:06 · loop</span>
+          <span>WU本子 · 1600 × 900</span>
+        </div>
+        <span class="prog" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 特性 ================= -->
+  <section class="sec" id="features">
+    <div class="wrap">
+      <div class="sec-head" data-reveal="">
+        <div>
+          <div class="idx">04 — 特性</div>
+          <h2>该有的都有，不该有的都没有</h2>
+        </div>
+        <p>没有会员、没有付费版、没有激活码，也没有一个 AI 入口。六个抽屉，一次给全。</p>
+      </div>
+
+      <div class="bento">
+        <article class="card card--wide" data-reveal="">
+          <div class="num">/ 01</div>
+          <h3>密码本 · 一把独立的锁</h3>
+          <p>密码本有自己的一把密码，与本子其他部分分开。条目默认以掩码显示，点眼睛才展开；
+            一键复制到剪贴板，关闭页面后重新上锁。密码只保存在本机。</p>
+        </article>
+
+        <article class="card card--rank" data-reveal="" style="--d:90ms">
+          <div>
+            <div class="num">/ 02</div>
+            <h3>零广告</h3>
+          </div>
+          <div class="big">0<small>条</small></div>
+        </article>
+
+        <article class="card card--rank" data-reveal="" style="--d:180ms">
+          <div>
+            <div class="num">/ 03</div>
+            <h3>六个抽屉</h3>
+          </div>
+          <div class="big">06<small>个</small></div>
+        </article>
+
+        <article class="card" data-reveal="">
+          <div class="num">/ 04</div>
+          <h3>备忘录</h3>
+          <p>标题与正文、标签、搜索与置顶。想到什么写下来，按标签归档，常用的一直在最上面。</p>
+        </article>
+
+        <article class="card" data-reveal="" style="--d:90ms">
+          <div class="num">/ 05</div>
+          <h3>待办</h3>
+          <p>勾选完成，设置优先级与截止日期，拆成子任务。做完的收进归档，不打扰眼前。</p>
+        </article>
+
+        <article class="card card--wide" data-reveal="" style="--d:180ms">
+          <div class="num">/ 06</div>
+          <h3>倒数日 · 文件库</h3>
+          <p>未来的倒数和过去的纪念日，都替你算好天数，置顶与颜色标签一眼分清；
+            照片、文档、音频从本地导入，在站内预览、重命名、删除，不上传任何服务器。</p>
+        </article>
+
+        <article class="card" data-reveal="">
+          <div class="num">/ 07</div>
+          <h3>设置</h3>
+          <p>三套主题、三档字号。夜间写字用深墨，白天翻看用米白，怎么舒服怎么来。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 数字 ================= -->
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat" data-reveal=""><b data-count="6">6</b><span>drawers</span></div>
+      <div class="stat" data-reveal="" style="--d:80ms"><b data-count="0">0</b><span>ads</span></div>
+      <div class="stat" data-reveal="" style="--d:160ms"><b data-count="0">0</b><span>network request</span></div>
+      <div class="stat" data-reveal="" style="--d:240ms"><b>100<i>%</i></b><span>local storage</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 关于 ================= -->
+  <section class="sec" id="about">
+    <div class="wrap">
+      <div class="sec-head" data-reveal="">
+        <div>
+          <div class="idx">05 — 关于</div>
+          <h2>这本本子，只属于你</h2>
+        </div>
+        <p>没有服务器，没有账号，没有同步。你的密码、备忘、日子与文件，都留在这台设备里。</p>
+      </div>
+
+      <div class="reach">
+        <div data-reveal="">
+          <div class="who">
+            <img src="assets/icon.svg" alt="WU本子图标">
+            <div>
+              <h3>WU本子</h3>
+              <p>WUKU · local-first notebook</p>
+            </div>
+          </div>
+          <p class="note">它不会要求你登录，也不会把数据发到任何地方。<em>清空浏览器数据之前</em>，
+            记得先把重要的内容备份出去；换一台设备，就是翻开另一本空白的本子。</p>
+        </div>
+
+        <ul class="contacts" data-reveal="" style="--d:120ms">
+          <li><span class="k">version</span><span class="v">v1.0.0</span><span class="tag">static</span></li>
+          <li><span class="k">storage</span><span class="v">浏览器本地</span><span class="tag">local</span></li>
+          <li><span class="k">account</span><span class="v">不需要</span><span class="tag">none</span></li>
+          <li><span class="k">network</span><span class="v">0 请求</span><span class="tag">offline</span></li>
+          <li><span class="k">ai</span><span class="v">没有入口</span><span class="tag">none</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 获取 ================= -->
+  <section class="dl" id="open">
+    <div class="wrap in">
+      <p class="mono" data-reveal="">06 — 获取</p>
+      <h2 class="display" data-reveal="" style="--d:80ms;margin-top:22px">打开，就能用。</h2>
+      <p data-reveal="" style="--d:160ms">装进手机与电脑，或者直接在浏览器里翻开。不用注册、不用登录；
+        数据各自留在各自的设备里，互不相扰。建议先设一把密码本的锁，再开始写。</p>
+
+      <div class="dl-download" id="download" data-reveal="" style="--d:220ms">
+        <div class="dl-download__top">
+          <span class="dl-download__k">下载客户端</span>
+          <span class="dl-download__v" id="dlVer">v1.0.0 · 本地构建</span>
+        </div>
+        <div class="dlbtns">
+          <a class="dlbtn dlbtn--solid" href="downloads/wu-notebook-android.apk" download data-cursor="">
+            <span class="dlbtn__ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 9.5h10v7a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-7z"/><path d="M9 9.5V8a3 3 0 0 1 6 0v1.5"/><path d="M9.2 5.6 7.8 3.8M14.8 5.6l1.4-1.8"/><path d="M10 12.4v2.2M14 12.4v2.2"/></svg>
+            </span>
+            <span class="dlbtn__t">安卓 APK<small>Android · 直接安装</small></span>
+            <span class="dlbtn__meta"><b>v1.0.0</b>54.2 MB</span>
+            <span class="dlbtn__go" aria-hidden="true">↓</span>
+          </a>
+          <a class="dlbtn" href="downloads/wu-notebook-windows.zip" download data-cursor="">
+            <span class="dlbtn__ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3.5 4.8l7.5-1v8.2H3.5V4.8z"/><path d="M13 3.5l7.5-1v9.5H13V3.5z"/><path d="M3.5 13h7.5v7.2L3.5 19.2V13z"/><path d="M13 13h7.5v9.5L13 20.5V13z"/></svg>
+            </span>
+            <span class="dlbtn__t">Windows 程序<small>解压后运行 .exe</small></span>
+            <span class="dlbtn__meta"><b>v1.0.0</b>12.2 MB</span>
+            <span class="dlbtn__go" aria-hidden="true">↓</span>
+          </a>
+        </div>
+        <p class="dl-download__note">APK 安装前需在系统设置里允许「安装未知来源应用」；Windows 包解压后，
+          <b>.exe</b> 要与同目录的 <b>.dll</b> 和 <b>data</b> 文件夹放在一起，单独移动 exe 无法启动。</p>
+      </div>
+
+      <div class="dl-alt" data-reveal="" style="--d:280ms"><span>或者，在浏览器里直接打开</span></div>
+
+      <div class="dlgrid" data-reveal="" style="--d:320ms">
+        <a class="dlcard" href="app.html" data-cursor="">
+          <span class="dlcard__os">Mobile</span>
+          <span class="dlcard__go">↗</span>
+          <b>手机浏览器打开</b>
+          <small>竖屏 · 底部六个抽屉</small>
+        </a>
+        <a class="dlcard" href="app.html" data-cursor="">
+          <span class="dlcard__os">Desktop</span>
+          <span class="dlcard__go">↗</span>
+          <b>桌面浏览器打开</b>
+          <small>宽屏 · 左侧抽屉栏</small>
+        </a>
+      </div>
+      <p class="dl-note" data-reveal="" style="--d:380ms">
+        密码本使用<b>独立密码</b>；文件保存在浏览器 IndexedDB，不支持时自动回退到本地存储。清除站点数据会一并清空内容。
+      </p>
+      <p class="hash" data-reveal="" style="--d:440ms">
+        <b>LOCAL-FIRST</b> 无账号 · 无广告 · 无 AI 入口
+        <u>数据不离开设备 · 断网可用 · 静态站</u>
+      </p>
+      <a class="btn btn--solid" href="app.html" data-cursor="">打开 WU本子<small>v1.0.0 · 6 drawers</small></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <a class="brand" href="#top">
+      <img src="assets/icon.svg" alt="">
+      <b>WU本子</b>
+    </a>
+    <nav>
+      <a href="#manifesto">概览</a>
+      <a href="#interface">界面</a>
+      <a href="#features">特性</a>
+      <a href="#about">关于</a>
+      <a href="#download">下载</a>
+      <a href="app.html">打开本子</a>
+    </nav>
+    <div class="foot__c">
+      <span>WU本子 · v1.0.0 · 六个抽屉</span>
+      <span>WUKU · made in the quiet</span>
+    </div>
+  </div>
+</footer>
+
+<div class="ring" id="ring" aria-hidden="true"></div>
+
+<script src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="ink" data-size="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WU本子 — 密码本 · 备忘录 · 待办 · 倒数日 · 文件库</title>
+<meta name="description" content="WU本子：纯本地运行的密码本、备忘录、待办、倒数日与文件库。无需账号，数据只存本机。">
+<meta name="theme-color" content="#060807">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/app.css">
+<script>
+/* 首屏前应用主题与字号，避免闪白 */
+(function(){
+  try{
+    var s = JSON.parse(localStorage.getItem("wuku.v1.settings") || "{}");
+    var root = document.documentElement;
+    if (s.theme === "night" || s.theme === "cream" || s.theme === "ink") root.setAttribute("data-theme", s.theme);
+    if (s.size === "sm" || s.size === "md" || s.size === "lg") root.setAttribute("data-size", s.size);
+  }catch(e){}
+})();
+</script>
+</head>
+<body class="app">
+
+<div class="app-bg" aria-hidden="true"></div>
+
+<aside class="sidebar">
+  <a class="app-brand" href="index.html" title="回到站点首页">
+    <img src="assets/icon.svg" alt="WU本子">
+    <span><b>WU本子</b><s>/ WUKU</s></span>
+  </a>
+
+  <nav class="side-nav" aria-label="主要功能">
+    <button class="nav-item" data-view="vault">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4"/></svg>
+      <span>密码本</span><b class="nav-count" data-count-for="vault"></b>
+    </button>
+    <button class="nav-item" data-view="memos">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg>
+      <span>备忘录</span><b class="nav-count" data-count-for="memos"></b>
+    </button>
+    <button class="nav-item" data-view="todos">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M8.5 12.2l2.5 2.5 4.5-5"/></svg>
+      <span>待办</span><b class="nav-count" data-count-for="todos"></b>
+    </button>
+    <button class="nav-item" data-view="days">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="M8 13.5h3M8 17h2"/></svg>
+      <span>倒数日</span><b class="nav-count" data-count-for="days"></b>
+    </button>
+    <button class="nav-item" data-view="files">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg>
+      <span>文件库</span><b class="nav-count" data-count-for="files"></b>
+    </button>
+  </nav>
+
+  <div class="side-foot">
+    <button class="nav-item nav-settings" data-view="settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 4v2.2M12 17.8V20M4 12h2.2M17.8 12H20M6.3 6.3l1.6 1.6M16.1 16.1l1.6 1.6M17.7 6.3l-1.6 1.6M7.9 16.1l-1.6 1.6"/></svg>
+      <span>设置</span>
+    </button>
+    <div class="storage-line"><i></i>本地存储 · 不联网</div>
+    <a class="side-link" href="index.html">← 回到站点首页</a>
+  </div>
+</aside>
+
+<main class="app-main">
+  <header class="app-top">
+    <div class="top-copy">
+      <p class="mono" id="viewKicker">WU 本子 / VAULT</p>
+      <h1 id="viewTitle">密码本</h1>
+    </div>
+    <div class="top-tools">
+      <label class="search" id="searchWrap">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5"/><path d="M15 15l4.5 4.5"/></svg>
+        <input id="searchInput" type="search" placeholder="搜索" autocomplete="off" aria-label="搜索">
+      </label>
+      <button class="act-primary" id="newBtn">＋ 新建</button>
+      <a class="icon-btn home-btn" href="index.html" title="回到首页" aria-label="回到首页">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5L12 4l8 7.5"/><path d="M6.5 10.5V19h11V10.5"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <section class="view-root" id="viewRoot" aria-live="polite"></section>
+
+  <nav class="tabbar" aria-label="功能切换">
+    <button data-view="vault">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4"/></svg>
+      <span>密码</span>
+    </button>
+    <button data-view="memos">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg>
+      <span>备忘</span>
+    </button>
+    <button data-view="todos">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M8.5 12.2l2.5 2.5 4.5-5"/></svg>
+      <span>待办</span>
+    </button>
+    <button data-view="days">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="M8 13.5h3M8 17h2"/></svg>
+      <span>日子</span>
+    </button>
+    <button data-view="files">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg>
+      <span>文件</span>
+    </button>
+    <button data-view="settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 4v2.2M12 17.8V20M4 12h2.2M17.8 12H20M6.3 6.3l1.6 1.6M16.1 16.1l1.6 1.6M17.7 6.3l-1.6 1.6M7.9 16.1l-1.6 1.6"/></svg>
+      <span>设置</span>
+    </button>
+  </nav>
+</main>
+
+<div class="modal-root" id="modalRoot" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="fileInput" multiple hidden>
+
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

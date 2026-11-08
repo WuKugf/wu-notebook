@@ -1,0 +1,40 @@
+name: wu_notebook
+description: "WU本子 - 纯本地离线的个人记录工具"
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.0
+
+# 依赖说明：
+# - hive / hive_flutter：纯 Dart 的本地键值数据库，无需原生依赖，手机与电脑端通用。
+# - path_provider：获取应用私有目录，用来存放附件与备份临时文件。
+# - cryptography：纯 Dart 实现的 PBKDF2 与 AES-GCM。
+# - crypto：流式 SHA-256，用于 .wuback 备份的完整性校验。
+# - file_picker：选择本地文件 / 保存备份文件。
+# - video_player：安卓端本地视频播放。
+# - url_launcher：电脑端用系统默认程序打开视频、PDF 等文件。
+# - permission_handler：安卓端申请文件读写权限。
+dependencies:
+  crypto: ^3.0.8
+  cryptography: ^2.9.0
+  file_picker: ^13.3.2
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path: ^1.9.1
+  path_provider: ^2.1.6
+  permission_handler: ^12.0.0
+  url_launcher: ^6.3.3
+  uuid: ^4.6.0
+  video_player: ^2.14.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,14 @@
+/.gradle
+/captures/
+/local.properties
+GeneratedPluginRegistrant.java
+.cxx/
+
+# 说明：gradle-wrapper.jar / gradlew / gradlew.bat 保留入库，
+# 这样克隆下来可以直接构建，不必重新生成 wrapper。
+
+# Remember to never publicly share your keystore.
+# See https://flutter.dev/to/reference-keystore
+key.properties
+**/*.keystore
+**/*.jks
